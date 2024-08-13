@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movies/domain/entities/movie.dart';
-import 'package:movies/domain/usecases/get_trending_movies.dart';
+import 'package:movies/domain/usecases/get_popular_movies.dart';
 
 import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
-  late GetTrendingMovies usecases;
+  late GetPopularMovies usecases;
   late MockMovieRepository mockMovieRepository;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    usecases = GetTrendingMovies(mockMovieRepository);
+    usecases = GetPopularMovies(mockMovieRepository);
   });
 
   final tMovieList = [
@@ -22,9 +22,9 @@ void main() {
         overview: 'overview 1'),
   ];
 
-  test('should get trending movies from the repository', () async {
+  test('should get popular movies from the repository', () async {
     // arrange
-    when(mockMovieRepository.getTrendingMovies())
+    when(mockMovieRepository.getPopularMovies())
         .thenAnswer((_) async => tMovieList);
 
     // act
@@ -32,7 +32,7 @@ void main() {
 
     // assert
     expect(result, tMovieList);
-    verify(mockMovieRepository.getTrendingMovies());
+    verify(mockMovieRepository.getPopularMovies());
     verifyNoMoreInteractions(mockMovieRepository);
   });
 }
