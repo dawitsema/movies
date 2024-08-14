@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:mockito/annotations.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:movies/domain/entities/movie.dart' as _i4;
 import 'package:movies/domain/repositories/movie_repository.dart' as _i2;
@@ -57,4 +58,31 @@ class MockMovieRepository extends _i1.Mock implements _i2.MovieRepository {
         ),
         returnValue: _i3.Future<List<_i4.Movie>>.value(<_i4.Movie>[]),
       ) as _i3.Future<List<_i4.Movie>>);
+}
+
+/// A class which mocks [MockSpec].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMockSpec<T> extends _i1.Mock implements _i5.MockSpec<T> {
+  MockMockSpec() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  List<Type> get mixins => (super.noSuchMethod(
+        Invocation.getter(#mixins),
+        returnValue: <Type>[],
+      ) as List<Type>);
+
+  @override
+  Set<Symbol> get unsupportedMembers => (super.noSuchMethod(
+        Invocation.getter(#unsupportedMembers),
+        returnValue: <Symbol>{},
+      ) as Set<Symbol>);
+
+  @override
+  Map<Symbol, Function> get fallbackGenerators => (super.noSuchMethod(
+        Invocation.getter(#fallbackGenerators),
+        returnValue: <Symbol, Function>{},
+      ) as Map<Symbol, Function>);
 }
