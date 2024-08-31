@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:movies/core/errors/failure.dart';
+
 import '../entities/movie.dart';
 import '../repositories/movie_repository.dart';
 
@@ -6,7 +9,7 @@ class GetTrendingMovies {
 
   GetTrendingMovies(this.repository);
 
-  Future<List<Movie>> call() async {
+  Future<Either<Failure, List<Movie>>> call() async {
     return await repository.getTrendingMovies();
   }
 }

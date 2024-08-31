@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movies/domain/entities/movie.dart';
@@ -16,7 +17,7 @@ void main() {
 
   final tMovieList = [
     Movie(
-        id: 1,
+        id: '1',
         title: 'Movie 1',
         posterPath: 'posterPath 1',
         overview: 'overview 1'),
@@ -25,13 +26,13 @@ void main() {
   test('should get popular movies from the repository', () async {
     // arrange
     when(mockMovieRepository.getPopularMovies())
-        .thenAnswer((_) async => tMovieList);
+        .thenAnswer((_) async => Right(tMovieList));
 
     // act
     final result = await usecases();
 
     // assert
-    expect(result, tMovieList);
+    expect(result, Right(tMovieList));
     verify(mockMovieRepository.getPopularMovies());
     verifyNoMoreInteractions(mockMovieRepository);
   });

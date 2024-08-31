@@ -3,22 +3,22 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movies/core/errors/server_exception.dart';
-import 'package:movies/data/datasources/remoteImpl/remote_data_source_impl.dart';
 import 'package:movies/data/datasources/remote_data_source.dart';
+import 'package:movies/data/models/movie_model.dart';
 
-import 'remote_data_source_test.mocks.dart'; // Adjust path as necessary
+import 'remote_data_source_test.mocks.dart';
 
 @GenerateMocks([http.Client])
-// class MockHttpClient extends Mock implements http.Client {}
-
 void main() {
-  late MovieRemoteDataSource dataSource;
-  late MockClient mockHttpClient; // Use the correct mock class
+  late MovieRemoteDataSourceImpl dataSource;
+  late MockClient mockHttpClient; // Ensure correct import
 
   setUp(() {
-    mockHttpClient = MockClient();
+    mockHttpClient = MockClient(); // Ensure correct mock class name
     dataSource = MovieRemoteDataSourceImpl(client: mockHttpClient);
   });
+
+  final String query = 'Black Panther';
 
   const String sampleJson = '''{
     "page": 1,
@@ -49,6 +49,12 @@ void main() {
   const tUrl =
       'https://api.themoviedb.org/3/trending/movie/day?api_key=1d86e999854334dda7f1dbd97a361294';
 
+  const pUrl =
+      'https://api.themoviedb.org/3/movie/popular?api_key=1d86e999854334dda7f1dbd97a361294';
+
+  final searchUrl =
+      'https://api.themoviedb.org/3/search/movie?api_key=1d86e999854334dda7f1dbd97a361294&query=$query';
+
   test('should perform a get request on the url to get trending movies',
       () async {
     // arrange
@@ -60,6 +66,35 @@ void main() {
 
     // assert
     verify(mockHttpClient.get(Uri.parse(tUrl)));
+    expect(result, isA<List<MovieModel>>()); // Add assertion on the result
+  });
+
+  test('should perform a get request on the url to get popular movies',
+      () async {
+    // arrange
+    when(mockHttpClient.get(Uri.parse(pUrl)))
+        .thenAnswer((_) async => http.Response(sampleJson, 200));
+
+    // act
+    final result = await dataSource.getPopularMovies();
+
+    // assert
+    verify(mockHttpClient.get(Uri.parse(pUrl)));
+    expect(result, isA<List<MovieModel>>()); // Add assertion on the result
+  });
+
+  test('should perform a GET request on the URL to search movies by query',
+      () async {
+    // arrange
+    when(mockHttpClient.get(Uri.parse(searchUrl)))
+        .thenAnswer((_) async => http.Response(sampleJson, 200));
+
+    // act
+    final result = await dataSource.searchMovies(query);
+
+    // assert
+    verify(mockHttpClient.get(Uri.parse(searchUrl)));
+    expect(result, isA<List<MovieModel>>()); // Add assertion on the result
   });
 
   test('should throw a server exception when the response code is not 200',

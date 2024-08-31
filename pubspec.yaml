@@ -13,6 +13,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   http: ^1.1.0
   dartz: ^0.10.1
+  equatable: ^2.0.5
+  connectivity_plus: ^6.0.5
+  internet_connection_checker: ^2.0.0
+  flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
