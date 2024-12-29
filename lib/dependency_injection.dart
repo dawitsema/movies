@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:movies/presentation/bloc/popular_movie_bloc/popular_movie_bloc.dart';
-
 import 'core/network/network_info.dart';
 import 'data/datasources/remote_data_source.dart';
 import 'data/repositories/movie_repository_impl.dart';
@@ -41,4 +41,5 @@ void init() {
 
   //External
   getIt.registerLazySingleton(() => http.Client());
+  getIt.registerLazySingleton(() => InternetConnectionChecker.createInstance());
 }
