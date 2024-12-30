@@ -24,12 +24,12 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hi Fabrice 👋',
+              'Hi Haile 👋',
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
-              'TDD - Movie App',
+              'Movie Recommendation',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                         children: <Widget>[
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text('▶️ Learn Flutter with Flutter Guys'),
+                            child: Text('▶ recommend me a movie'),
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.red,
